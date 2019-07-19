@@ -1,0 +1,391 @@
+/*=============================================================*/
+/* RESETS */
+/*=============================================================*/
+html,
+body {
+	box-sizing: border-box;
+	font-smoothing: antialiased;
+	-webkit-font-smoothing: antialiased;
+	text-shadow: rgba(0, 0, 0, .01) 0 0 1px;
+}
+
+body *,
+body *:after,
+body *:before {
+	box-sizing: inherit;
+	transform-origin: inherit;
+
+	/* normalize links to container */
+	color: inherit;
+	text-decoration: inherit;
+
+	/* Rermove text selection */
+	touch-action: manipulation;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+	/* Touch Scroll */
+	-webkit-overflow-scrolling: touch;
+	-webkit-transform-style: preserve-3d;
+	-webkit-backface-visibility: hidden;
+}
+
+img,
+svg {
+	max-width: 100%;
+	height: auto;
+}
+
+/*=============================================================*/
+/* UTILITY CLASSES */
+/*=============================================================*/
+.is-dnone {
+	display: none !important;
+}
+
+.v-hidden {
+	opacity: 0 !important;
+	pointer-events: none !important;
+}
+
+.vid-responsive {
+	position: relative;
+	width: 100%;
+}
+
+.vid-responsive::before {
+	content: '';
+	display: block;
+	width: 100%;
+	height: 0;
+	/* 16:9 */
+	padding-bottom: 56.25%;
+}
+
+.vid-responsive video,
+.vid-responsive iframe,
+.vid-responsive object {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+/*=============================================================*/
+/* BASE TYPOGRAPHY  */
+/*=============================================================*/
+html {
+	font-size: 3vw;
+}
+
+/*=============================================================*/
+/* FIXED VIEWPORT SETUP */
+/*=============================================================*/
+html,
+body {
+	height: 100%;
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+}
+
+body {
+	position: relative;
+	overflow: hidden;
+}
+
+
+/*=============================================================*/
+/* UI LAYERS & OBJECTS */
+/*=============================================================*/
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* .ui-header */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+.ui-header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	background: rgba(0, 0, 0, 1);
+	color: #fff;
+	padding: 10px;
+}
+
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* .ui-footer */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+.ui-footer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	background: rgba(0, 0, 0, 0.5);
+	color: #fff;
+	padding: 10px;
+}
+
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* .ui-trailer - Pop Up trailer */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+.ui-trailer {
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	background: #000;
+
+
+}
+
+.ui-trailer,
+.ui-trailer iframe {
+	transition:
+		opacity 0.5s ease 0s,
+		z-index 0s linear 0.5s;
+	pointer-events: none;
+	opacity: 0;
+}
+
+.ui-trailer.is-open,
+.ui-trailer.is-open iframe {
+	pointer-events: all;
+	opacity: 1;
+	transition:
+		opacity 0.5s ease 0s,
+		z-index 0s linear 0s;
+	-webkit-transform-style: flat !important;
+}
+
+.ui-trailer__close {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+}
+
+@media screen and (min-width: 992px) {
+	.ui-trailer__close {
+		top: 20px;
+		left: 20px;
+	}
+}
+
+
+
+.ui-trailer__video {
+	width: 100vmax;
+	max-width: calc(100vw - 30px - 30px);
+	/* vpW - padLeft - padRight */
+	max-height: calc(100vh - 100px - 100px);
+	/* vpH - padTop - padBott */
+}
+
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* .ui-deskLand - Description */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+.ui-deskLand {
+	display: none;
+}
+
+html.desktop .ui-deskLand {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #fff;
+}
+
+/*=============================================================*/
+/* .page - Page elements */
+/*=============================================================*/
+.page {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.3s ease;
+}
+
+.page.is-current {
+	opacity: 1;
+}
+
+.page.is-ready {
+	pointer-events: all;
+}
+
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* .page--html - HTML type pages */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+.page--html {}
+
+/*=============================================================*/
+/* MAJOR Z-INDEX - Zindex for major site and ui components */
+/*=============================================================*/
+.page-html {
+	z-index: 1;
+}
+
+.ui-header,
+.ui-footer {
+	z-index: 2;
+}
+
+.ui-trailer {
+	z-index: 3;
+}
+
+.ui-deskLand {
+	z-index: 4;
+}
+
+/*=============================================================*/
+/* SCREENS & OBJECTS */
+/*=============================================================*/
+
+.screen {
+	position: relative;
+	display: flex;
+	width: 100%;
+	height: 100%;
+}
+
+.screen--scroll {
+	justify-content: flex-start !important;
+	overflow-y: auto;
+}
+
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* .screen-page - Screen Page Type */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+.screen-page {
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 100px 60px;
+}
+
+.screen-page__back {
+	position: fixed;
+	top: 60px;
+	left: 40px;
+	z-index: 999;
+}
+
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* .screen-landing - landing page screen and objects */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+.screen-landing {}
+
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* .screen-synopsis - page screen and objects */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+.screen-synopsis {}
+
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* .screen-cast - page screen and objects */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+.screen-cast {}
+
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* .screen-gallery - page screen and objects */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+.screen-gallery {}
+
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* .gallery - Gallery Object */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+.gallery {
+	width: 100%;
+}
+
+.gallery__item img {
+	width: 100%;
+}
+
+.gallery__slider {
+	height: 100%;
+	;
+}
+
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* .screen-gallery - page screen and objects */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+.screen-gallery {}
+
+
+/*=============================================================*/
+/* .mnu - Menu Layouts */
+/*=============================================================*/
+.mnu {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* .mnu-landing - Landin page menu */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+.mnu-landing {}
+
+.mnu-landing li {
+	margin-bottom: 30px;
+}
+
+.mnu-landing li:last-child {
+	margin-bottom: 0;
+}
+
+/*=============================================================*/
+/* .btn - Buttons */
+/*=============================================================*/
+.btn {
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.btn.is-disabled {
+	opacity: 0.5 !important;
+	pointer-events: none !important;
+	cursor: not-allowed !important;
+}
+
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* .btn-back - Back button for pages */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+.btn-back {
+	padding: 5px 10px;
+	border: 1px solid black;
+	background: #c4c4c4;
+}
+
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* .btn-big - Big Buttons for landing page */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+.btn-big {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 70vw;
+	height: 20vh;
+	background: #c4c4c4;
+}
